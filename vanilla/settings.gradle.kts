@@ -1,7 +1,7 @@
-rootProject.name = "SpongeCommon"
+rootProject.name = "SpongeVanilla"
 
-include(":SpongeAPI")
-include(":vanilla")
+include("../SpongeCommon")
+include("../SpongeCommon:SpongeAPI")
 pluginManagement {
     repositories {
         mavenLocal()
