@@ -37,7 +37,7 @@ public class SpongePlaceholderTextBuilder implements PlaceholderText.Builder {
 
     @Nullable private PlaceholderParser parser;
     @Nullable private Supplier<MessageReceiver> associatedSource;
-    @Nullable private String argument;
+    @Nullable private String argument = null;
 
     @Override
     public PlaceholderText.Builder setParser(PlaceholderParser parser) {
@@ -53,7 +53,7 @@ public class SpongePlaceholderTextBuilder implements PlaceholderText.Builder {
 
     @Override
     public PlaceholderText.Builder setArgument(@Nullable String argument) {
-        this.argument = argument;
+        this.argument = argument == null || argument.isEmpty() ? null : argument;
         return this;
     }
 
