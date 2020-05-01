@@ -62,7 +62,10 @@ public class PlaceholderParserRegistryModule
         register(new PlaceholderParser() {
             @Override
             public Text parse(PlaceholderText placeholderText) {
-                return placeholderText.getAssociatedReceiver().<Text>map(x -> Text.of(((CommandSource) x).getName())).orElse(Text.EMPTY);
+                return placeholderText.getAssociatedReceiver()
+                        .filter(x -> x instanceof CommandSource)
+                        .<Text>map(x -> Text.of(((CommandSource) x).getName()))
+                        .orElse(Text.EMPTY);
             }
 
             @Override
@@ -80,8 +83,9 @@ public class PlaceholderParserRegistryModule
             public Text parse(PlaceholderText placeholderText) {
                 return Text.of(
                         placeholderText.getAssociatedReceiver()
-                            .map(x -> ((Locatable) x).getWorld().getName())
-                            .orElseGet(() -> SpongeImpl.getServer().getEntityWorld().getWorldInfo().getWorldName()));
+                                .filter(x -> x instanceof Locatable)
+                                .map(x -> ((Locatable) x).getWorld().getName())
+                                .orElseGet(() -> SpongeImpl.getServer().getEntityWorld().getWorldInfo().getWorldName()));
             }
 
             @Override
