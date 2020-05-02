@@ -63,7 +63,7 @@ public class SpongePlaceholderText implements PlaceholderText {
     }
 
     @Override
-    public Optional<String> getArgument() {
+    public Optional<String> getArgumentString() {
         return Optional.ofNullable(this.argument);
     }
 

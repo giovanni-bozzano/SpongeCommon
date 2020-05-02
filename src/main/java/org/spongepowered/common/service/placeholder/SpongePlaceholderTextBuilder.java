@@ -52,7 +52,7 @@ public class SpongePlaceholderTextBuilder implements PlaceholderText.Builder {
     }
 
     @Override
-    public PlaceholderText.Builder setArgument(@Nullable String argument) {
+    public PlaceholderText.Builder setArgumentString(@Nullable String argument) {
         this.argument = argument == null || argument.isEmpty() ? null : argument;
         return this;
     }
@@ -70,7 +70,7 @@ public class SpongePlaceholderTextBuilder implements PlaceholderText.Builder {
         Preconditions.checkArgument(value instanceof SpongePlaceholderText, "Must supply a SpongePlaceholderText");
         this.parser = value.getParser();
         this.associatedSource = ((SpongePlaceholderText) value).associatedReceiverSupplier;
-        this.argument = value.getArgument().orElse(null);
+        this.argument = value.getArgumentString().orElse(null);
         return this;
     }
 
