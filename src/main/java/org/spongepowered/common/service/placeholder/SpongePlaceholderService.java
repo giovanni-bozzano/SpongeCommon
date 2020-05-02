@@ -61,6 +61,11 @@ public class SpongePlaceholderService implements PlaceholderService {
     }
 
     @Override
+    public Optional<PlaceholderParser> getParser(String token) {
+        return SpongeImpl.getRegistry().getType(PlaceholderParser.class, token);
+    }
+
+    @Override
     public PlaceholderText.Builder placeholderBuilder() {
         return new SpongePlaceholderTextBuilder();
     }
@@ -77,7 +82,7 @@ public class SpongePlaceholderService implements PlaceholderService {
     }
 
     private Optional<PlaceholderText> parseInternal(String token, @Nullable String argumentString, @Nullable Supplier<MessageReceiver> messageReceiver) {
-        return SpongeImpl.getRegistry().getType(PlaceholderParser.class, token)
+        return getParser(token)
                 .map(x -> placeholderBuilder().setAssociatedSource(messageReceiver).setArgumentString(argumentString).setParser(x).build());
     }
 
