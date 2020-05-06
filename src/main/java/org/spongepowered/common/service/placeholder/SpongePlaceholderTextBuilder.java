@@ -46,7 +46,7 @@ public class SpongePlaceholderTextBuilder implements PlaceholderText.Builder {
     }
 
     @Override
-    public PlaceholderText.Builder setAssociatedSource(@Nullable Supplier<MessageReceiver> associatedSource) {
+    public PlaceholderText.Builder setAssociatedContext(@Nullable Supplier<MessageReceiver> associatedSource) {
         this.associatedSource = associatedSource;
         return this;
     }

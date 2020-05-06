@@ -54,7 +54,7 @@ public class SpongePlaceholderText implements PlaceholderText {
     }
 
     @Override
-    public Optional<MessageReceiver> getAssociatedReceiver() {
+    public Optional<MessageReceiver> getAssociatedContext() {
         if (this.associatedReceiverSupplier == null) {
             return Optional.empty();
         }
