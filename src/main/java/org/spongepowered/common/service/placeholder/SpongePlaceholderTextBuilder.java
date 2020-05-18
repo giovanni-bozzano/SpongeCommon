@@ -27,7 +27,6 @@ package org.spongepowered.common.service.placeholder;
 import com.google.common.base.Preconditions;
 import org.spongepowered.api.service.placeholder.PlaceholderParser;
 import org.spongepowered.api.service.placeholder.PlaceholderText;
-import org.spongepowered.api.text.channel.MessageReceiver;
 
 import java.util.function.Supplier;
 
@@ -36,7 +35,7 @@ import javax.annotation.Nullable;
 public class SpongePlaceholderTextBuilder implements PlaceholderText.Builder {
 
     @Nullable private PlaceholderParser parser;
-    @Nullable private Supplier<MessageReceiver> associatedSource;
+    @Nullable private Supplier<Object> associatedObjectSupplier;
     @Nullable private String argument = null;
 
     @Override
@@ -46,8 +45,8 @@ public class SpongePlaceholderTextBuilder implements PlaceholderText.Builder {
     }
 
     @Override
-    public PlaceholderText.Builder setAssociatedContext(@Nullable Supplier<MessageReceiver> associatedSource) {
-        this.associatedSource = associatedSource;
+    public PlaceholderText.Builder setAssociatedObject(@Nullable Supplier<Object> associatedObjectSupplier) {
+        this.associatedObjectSupplier = associatedObjectSupplier;
         return this;
     }
 
@@ -62,14 +61,14 @@ public class SpongePlaceholderTextBuilder implements PlaceholderText.Builder {
         if (this.parser == null) {
             throw new IllegalStateException("parser cannot be null");
         }
-        return new SpongePlaceholderText(this.parser, this.associatedSource, this.argument);
+        return new SpongePlaceholderText(this.parser, this.associatedObjectSupplier, this.argument);
     }
 
     @Override
     public PlaceholderText.Builder from(PlaceholderText value) {
         Preconditions.checkArgument(value instanceof SpongePlaceholderText, "Must supply a SpongePlaceholderText");
         this.parser = value.getParser();
-        this.associatedSource = ((SpongePlaceholderText) value).associatedReceiverSupplier;
+        this.associatedObjectSupplier = ((SpongePlaceholderText) value).associatedObjectSupplier;
         this.argument = value.getArgumentString().orElse(null);
         return this;
     }
@@ -78,7 +77,7 @@ public class SpongePlaceholderTextBuilder implements PlaceholderText.Builder {
     public PlaceholderText.Builder reset() {
         this.argument = null;
         this.parser = null;
-        this.associatedSource = null;
+        this.associatedObjectSupplier = null;
         return this;
     }
 

@@ -37,14 +37,14 @@ import javax.annotation.Nullable;
 public class SpongePlaceholderText implements PlaceholderText {
 
     private final PlaceholderParser parser;
-    @Nullable final Supplier<MessageReceiver> associatedReceiverSupplier;
+    @Nullable final Supplier<Object> associatedObjectSupplier;
     @Nullable private final String argument;
 
     public SpongePlaceholderText(PlaceholderParser parser,
-            @Nullable Supplier<MessageReceiver> associatedReceiverSupplier,
+            @Nullable Supplier<Object> associatedReceiverSupplier,
             @Nullable String argument) {
         this.parser = parser;
-        this.associatedReceiverSupplier = associatedReceiverSupplier;
+        this.associatedObjectSupplier = associatedReceiverSupplier;
         this.argument = argument;
     }
 
@@ -54,12 +54,12 @@ public class SpongePlaceholderText implements PlaceholderText {
     }
 
     @Override
-    public Optional<MessageReceiver> getAssociatedContext() {
-        if (this.associatedReceiverSupplier == null) {
+    public Optional<Object> getAssociatedObject() {
+        if (this.associatedObjectSupplier == null) {
             return Optional.empty();
         }
 
-        return Optional.ofNullable(this.associatedReceiverSupplier.get());
+        return Optional.ofNullable(this.associatedObjectSupplier.get());
     }
 
     @Override

@@ -46,8 +46,8 @@ public class SpongePlaceholderService implements PlaceholderService {
     }
 
     @Override
-    public Optional<PlaceholderText> parse(String token, MessageReceiver messageReceiver) {
-        return this.parseInternal(token, null, this.createMessageReceiverSupplier(messageReceiver));
+    public Optional<PlaceholderText> parse(String token, Object associatedObject) {
+        return this.parseInternal(token, null, this.createMessageReceiverSupplier(associatedObject));
     }
 
     @Override
@@ -56,8 +56,8 @@ public class SpongePlaceholderService implements PlaceholderService {
     }
 
     @Override
-    public Optional<PlaceholderText> parse(String token, String argumentString, MessageReceiver messageReceiver) {
-        return this.parseInternal(token, argumentString, this.createMessageReceiverSupplier(messageReceiver));
+    public Optional<PlaceholderText> parse(String token, String argumentString, Object associatedObject) {
+        return this.parseInternal(token, argumentString, this.createMessageReceiverSupplier(associatedObject));
     }
 
     @Override
@@ -83,7 +83,7 @@ public class SpongePlaceholderService implements PlaceholderService {
 
     private Optional<PlaceholderText> parseInternal(String token, @Nullable String argumentString, @Nullable Supplier<MessageReceiver> messageReceiver) {
         return getParser(token)
-                .map(x -> placeholderBuilder().setAssociatedContext(messageReceiver).setArgumentString(argumentString).setParser(x).build());
+                .map(x -> placeholderBuilder().setAssociatedObject(messageReceiver).setArgumentString(argumentString).setParser(x).build());
     }
 
 }
